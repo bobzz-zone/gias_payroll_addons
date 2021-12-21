@@ -12,6 +12,23 @@ app_license = "MIT"
 # Includes in <head>
 # ------------------
 
+fixtures = [
+    {"dt": "Custom Field", "filters": [
+        [
+            "dt", "in", [
+                "Salary Slip", "Attendance"
+            ]
+        ]
+    ]},
+     {"dt": "DocType", "filters": [
+        [
+            "module", "in", [
+                "Payroll Addons"
+            ]
+        ]
+    ]}
+]
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/payroll_addons/css/payroll_addons.css"
 # app_include_js = "/assets/payroll_addons/js/payroll_addons.js"
@@ -31,7 +48,7 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Salary Slip" : "public/js/custom_salary_slip.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -89,34 +106,39 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Payroll Entry":{
+		"validate" : "payroll_addons.custom_standard.custom_salary_slip.add_extra_component"
+	},
+	"Salary Slip":{
+		"validate" : "payroll_addons.custom_standard.custom_salary_slip.add_extra_component",
+		"autoname": "payroll_addons.custom_standard.custom_salary_slip.autoname_ss"
+	},
+	"Attendance":{
+		"validate" : "payroll_addons.custom_standard.custom_attendance.set_time"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"payroll_addons.tasks.all"
-# 	],
-# 	"daily": [
-# 		"payroll_addons.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"payroll_addons.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"payroll_addons.tasks.weekly"
-# 	]
-# 	"monthly": [
-# 		"payroll_addons.tasks.monthly"
-# 	]
-# }
+scheduler_events = {
+	# "all": [
+	# 	"payroll_addons.tasks.all"
+	# ],
+	# "daily": [
+	# 	"payroll_addons.tasks.daily"
+	# ],
+	"hourly": [
+		"payroll_addons.custom_standard.custom_attendance.get_all_non_attendance"
+	],
+	# "weekly": [
+	# 	"payroll_addons.tasks.weekly"
+	# ]
+	# "monthly": [
+	# 	"payroll_addons.tasks.monthly"
+	# ]
+}
 
 # Testing
 # -------

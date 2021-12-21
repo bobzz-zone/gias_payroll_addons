@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "creation": "2021-07-31 00:38:28.423120",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tanggal_awal_tunjangan",
+  "tanggal_akhir_tunjangan",
+  "keterangan_formula"
+ ],
+ "fields": [
+  {
+   "description": "Tanggal awal untuk Tunjangan. Bulan yang diambil selalu dari 1 bulan lalu mengikuti salary date. Contoh diisi 15, maka saat payroll untuk tanggal 1 Juli 2021, attendance yang dicek akan mulai dari tanggal 15 Juni 2021 - (tanggal akhir tunjangan) Juli 2021",
+   "fieldname": "tanggal_awal_tunjangan",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Tanggal Awal Tunjangan"
+  },
+  {
+   "fieldname": "tanggal_akhir_tunjangan",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Tanggal Akhir Tunjangan"
+  },
+  {
+   "default": "extra_ontime_present : Attendance Present, Half Day, dan Work From Home yang tidak late ataupun early exit\nextra_early_exit_present: Attendance Present, Half Day, dan Work From Home yang Early Exit tercentang\nextra_late_early_present: Attendance Present, Half Day, dan Work From Home yang Late dan Early Exit tercentang\nextra_late_early_present: Attendance Present, Half Day, dan Work From Home yang Late dan Early Exit tercentang\n{leave_type}_days: contoh. Leave Type Ijin. variablenya adalah ijin_days. Tanpa special character seperti ( dan ), spasi diganti dengan _\nextra_{leave_type}_days: contoh. Leave Type Ijin. variablenya adalah extra_ijin_days. Tanpa special character seperti ( dan ), spasi diganti dengan _\n\ncontoh : Leave Type \"Sakit (Tanpa Surat Dokter)\"\njumlah hari dengan leave type dari tanggal payroll = sakit_tanpa_surat_dokter_days\njumlah hari dengan leave type dari tanggal tunjangan = \nextra_sakit_tanpa_surat_dokter_days",
+   "fieldname": "keterangan_formula",
+   "fieldtype": "Long Text",
+   "label": "Keterangan Formula",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2021-08-02 13:55:26.431450",
+ "modified_by": "Administrator",
+ "module": "Payroll Addons",
+ "name": "Payroll Addons Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

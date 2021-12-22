@@ -22,7 +22,7 @@ frappe.query_reports["Laporan HR SPT"] = {
 			"fieldname": "cabang",
 			"label": __("Branch"),
 			"fieldtype": "Link",
-			"options": "Branch",
+			"options":"Branch",
 			"reqd": 1
 		}
 	]

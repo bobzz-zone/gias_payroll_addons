@@ -10,39 +10,7 @@ from datetime import date
 
 def execute(filters=None):
 	columns, data = [], []
-	columns = [
-		{
-			"fieldname": "employee_id",
-			"label": "Employee ID",
-			"fieldtype": "Link/Employee",
-			"width": 150
-		},
-		{
-			"fieldname": "employee_name",
-			"label": "Employee Name",
-			"fieldtype": "Data",
-			"width": 200
-		},
-		{
-			"fieldname": "gross_pay",
-			"label": "Gross Pay",
-			"fieldtype": "Currency",
-			"width": 200
-		},
-		{
-			"fieldname": "regular",
-			"label": "Regular",
-			"fieldtype": "Currency",
-			"width": 200
-		},
-		{
-			"fieldname": "pph21",
-			"label": "PPH21",
-			"fieldtype": "Currency",
-			"width": 200
-		}
-	]
-	columns=["Employee ID:Link/Employee:150","Employee Name:Data:200","Nomor NPWP:Data:200","Gross Pay:Currency:200","Regular:Currency:200","PPH21:Currency:200"]
+	columns=["Employee ID:Data:150","Employee Name:Data:200","Nomor NPWP:Data:200","Gross Pay:Currency:200","Regular:Currency:200","PPH21:Currency:200"]
 	raw_data = frappe.db.sql(""" 
 		SELECT 
 		ts.employee,ts.`employee_name`,te.nomor_npwp, te.`branch`,

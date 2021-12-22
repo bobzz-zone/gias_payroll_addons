@@ -10,34 +10,8 @@ from datetime import date
 
 def execute(filters=None):
 	columns, data = [], []
-	columns = [
-		{
-			"fieldname": "employee_id",
-			"label": "Employee ID",
-			"fieldtype": "Link/Employee",
-			"width": 150
-		},
-		{
-			"fieldname": "employee_name",
-			"label": "Employee Name",
-			"fieldtype": "Data",
-			"width": 200
-		},
-		{
-			"fieldname": "gross_pay",
-			"label": "Gross Pay",
-			"fieldtype": "Currency",
-			"width": 200
-		},
-		{
-			"fieldname": "pph21",
-			"label": "PPH21",
-			"fieldtype": "Currency",
-			"width": 200
-		}
-	]
-	columns=["Employee ID:Link/Employee:150","Employee Name:Data:200","Nomor NPWP:Data:200","Gross Pay:Currency:200","PPH21:Currency:200"]
-	raw_data = frappe.db.sql(""" 
+	columns=["Employee ID:Data:150","Employee Name:Data:200","Nomor NPWP:Data:200","Gross Pay:Currency:200","PPH21:Currency:200"]
+	query=""" 
 		SELECT 
 		ts.employee,ts.`employee_name`, te.nomor_npwp, te.`branch`,
 		tsd.`is_tax_applicable`, tsd.`salary_component`, tsd.`statistical_component`,
@@ -56,13 +30,12 @@ def execute(filters=None):
 		AND
 		ts.`docstatus` = 1
 
-		ORDER BY ts.`employee` """.format(filters.get("from_date"),filters.get("to_date"),filters.get("cabang")),as_dict=1)
-
+		ORDER BY ts.`employee` """.format(filters.get("from_date"),filters.get("to_date"),filters.get("cabang"))
+	raw_data = frappe.db.sql(query,as_dict=1)
 	temp_employee = []
 	for row in raw_data:
 		if row.employee not in temp_employee:
 			temp_employee.append(row.employee)
-
 	for row in temp_employee:
 		employee_id = row
 		gross_pay = 0
@@ -79,6 +52,4 @@ def execute(filters=None):
 				elif row_raw.salary_component != "Potongan Perhitungan Pajak BIJAB" and row_raw.salary_component != "BPJS Di Potongkan Di Akui Pajak" and row_raw.parentfield == "earnings" and str(row_raw.statistical_component) == "0"  and str(row_raw.is_tax_applicable) == "1":
 					gross_pay += flt(row_raw.amount)
 		data.append([employee_id,employee_name,no_npwp, gross_pay, pph21])
-
-
 	return columns, data

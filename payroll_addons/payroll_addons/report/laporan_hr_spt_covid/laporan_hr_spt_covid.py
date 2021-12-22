@@ -53,9 +53,9 @@ def execute(filters=None):
 		JOIN `tabEmployee` te ON te.name = ts.`employee`
 		JOIN `tabSalary Detail` tsd ON tsd.parent = ts.name
 		WHERE
-		ts.start_date >= "{}"
+		ts.posting_date >= "{}"
 		AND
-		ts.end_date <= "{}"
+		ts.posting_date <= "{}"
 
 		AND 
 		te.`branch` = "{}"

@@ -47,9 +47,9 @@ def execute(filters=None):
 		JOIN `tabEmployee` te ON te.name = ts.`employee`
 		JOIN `tabSalary Detail` tsd ON tsd.parent = ts.name
 		WHERE
-		ts.start_date >= "{}"
+		ts.posting_date >= "{}"
 		AND
-		ts.end_date <= "{}"
+		ts.posting_date <= "{}"
 
 		AND 
 		te.`branch` = "{}"
@@ -57,28 +57,7 @@ def execute(filters=None):
 		ts.`docstatus` = 1
 
 		ORDER BY ts.`employee` """.format(filters.get("from_date"),filters.get("to_date"),filters.get("cabang")),as_dict=1)
-	frappe.msgprint(len(raw_data))
-	if len(raw_data)==0:
-		frappe.msgprint(""" 
-		SELECT 
-		ts.employee,ts.`employee_name`, te.nomor_npwp, te.`branch`,
-		tsd.`is_tax_applicable`, tsd.`salary_component`, tsd.`statistical_component`,
-		tsd.`amount`, tsd.`parentfield`
 
-		FROM `tabSalary Slip` ts
-		JOIN `tabEmployee` te ON te.name = ts.`employee`
-		JOIN `tabSalary Detail` tsd ON tsd.parent = ts.name
-		WHERE
-		ts.start_date >= "{}"
-		AND
-		ts.end_date <= "{}"
-
-		AND 
-		te.`branch` = "{}"
-		AND
-		ts.`docstatus` = 1
-
-		ORDER BY ts.`employee` """.format(filters.get("from_date"),filters.get("to_date"),filters.get("cabang")))
 	temp_employee = []
 	for row in raw_data:
 		if row.employee not in temp_employee:

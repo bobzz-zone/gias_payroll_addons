@@ -26,7 +26,9 @@ def autoname_ss(self, method):
 		self.name = make_autoname("Sal Slip/{0}/.#####".format(self.employee))
 	else:
 		self.name = make_autoname("Sal Slip/.#####".format(self.employee))
-
+@frappe.whitelist()
+def update_umk(self, method):
+	frappe.db.sql("""update tabEmployee set umk={} where branch="{}" """.format(self.umk,self.name))
 
 @frappe.whitelist()
 def debug():

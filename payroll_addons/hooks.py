@@ -116,6 +116,9 @@ doc_events = {
 	},
 	"Attendance":{
 		"validate" : "payroll_addons.custom_standard.custom_attendance.set_time"
+	},
+	"Branch":{
+		"validate": "payroll_addons.custom_standard.custom_salary_slip.update_umk"
 	}
 }
 

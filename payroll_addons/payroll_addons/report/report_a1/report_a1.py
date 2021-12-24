@@ -51,7 +51,7 @@ def execute(filters=None):
 	employee_ptkp={}
 	data_ptkp=frappe.db.sql("""select ssa.employee,ssa.from_date, ssa.income_tax_slab ,tss.from_amount
 		from `tabSalary Structure Assignment` ssa left join tabEmployee e on e.name=ssa.employee left join `tabTaxable Salary Slab` tss on tss.parent=ssa.name and tss.idx=1
-		where e.branch="{1}" and ssa.from_date <"{0}" and ssa.from_date in (select max(from_date) from `tabSalary Structure Assignment` ssa2 where ssa2.employee=ssa.employee)
+		where e.branch="{1}" and ssa.from_date <"{0}" and ssa.from_date in (select max(from_date) from `tabSalary Structure Assignment` ssa2 where ssa2.employee=ssa.employee and ssa2.from_date <"{0}")
 	""".format(period.year_end_date, filters.get("branch")),as_dict=1)
 	for row in data_ptkp:
 		employee_ptkp[row.employee]=row.from_amount

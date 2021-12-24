@@ -351,8 +351,8 @@ def custom_add_structure_components(self, component_type):
 	# data.update({'extra_late_early_present': late_early_present})
 
 	payroll_period = get_payroll_period(self.start_date, self.end_date, self.company)
-	remaining_sub_periods = get_period_factor(self.employee,
-		self.start_date, self.end_date, self.payroll_frequency, payroll_period)[1]
+	remaining_sub_periods = round(get_period_factor(self.employee,
+		self.start_date, self.end_date, self.payroll_frequency, payroll_period,1)[1])
 
 	total_prev_biaya_jabatan_query = frappe.db.sql(""" 
 		

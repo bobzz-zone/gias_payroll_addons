@@ -1,7 +1,7 @@
 {
  "actions": [],
  "autoname": "AR-.#######",
- "creation": "2021-08-31 15:23:50.680610",
+ "creation": "2021-08-31 14:54:01.198405",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -53,7 +53,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-31 15:24:04.439879",
+ "modified": "2021-12-23 23:41:02.877566",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Attendance Reminder",
@@ -82,6 +82,5 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC",
- "track_changes": 1
+ "sort_order": "DESC"
 }

@@ -33,7 +33,7 @@ def execute(filters=None):
 		amount_detail[row.employee][cstr(row.golongan_a1)]=flt(row.total)
 	#get employee dengan salary slip yang ada pada tahun terpilih, dan ambil bulan awal , dan akir salary slip pada cabang tersebut
 	employee_list = frappe.db.sql(""" select MIN(MONTH(sl.end_date)) as "awal",MAX(MONTH(sl.end_date)) as "akhir",sl.employee,
-				e.nomor_npwp,e.nomor_ktp,e.gender,e.employee_name,e.employment_type,e.ptkp,e.jumlah_tanggungan , e.current_address
+				e.nomor_npwp,e.nomor_ktp,e.gender,e.employee_name,e.employment_type , e.current_address
 			from `tabSalary Slip` sl
 			left join tabEmployee e on sl.employee=e.name
 			where sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch="{2}"
@@ -54,7 +54,10 @@ def execute(filters=None):
 		where e.branch="{1}" and ssa.from_date <"{0}" and ssa.from_date in (select max(from_date) from `tabSalary Structure Assignment` ssa2 where ssa2.employee=ssa.employee and ssa2.from_date <"{0}")
 	""".format(period.year_end_date, filters.get("branch")),as_dict=1)
 	for row in data_ptkp:
-		employee_ptkp[row.employee]=row.from_amount
+		employee_ptkp[row.employee]={}
+		employee_ptkp[row.employee]["ptkp_value"]=row.from_amount
+		employee_ptkp[row.employee]["tanggungan"]=row.income_tax_slab[-1:]
+		employee_ptkp[row.employee]["ptkp"]=row.income_tax_slab.strip(employee_ptkp[row.employee]["tanggunan"])
 	#get salary total untk gaji cabang sebelumnya jika ada yang start pointnya di bawah bulan mulainya
 	past={}
 	for row in check_past:
@@ -80,6 +83,6 @@ def execute(filters=None):
 		row8=amount_detail[row]["1"]+amount_detail[row]["3"]+amount_detail[row]["5"]+amount_detail[row]["7"]
 		row11=amount_detail[row]["9"]+amount_detail[row]["10"]
 		row13=(past[row]["1"]+past[row]["3"]+past[row]["5"]+past[row]["7"])-(past[row]["9"]+past[row]["10"])
-		data.append(["12",fiscal,"0","{}{:07n}".format(format_bupot,n),details[row].awal,details[row].akhir,details[row].nomor_npwp,row,details[row].employee_name,details[row].current_address,details[row].gender[0],details[row].ptkp,details[row].jumlah_tanggungan,details[row].employment_type,"N","0","21-100-01",amount_detail[row]["1"],"0",amount_detail[row]["3"],"0",amount_detail[row]["5"],"0",amount_detail[row]["7"],row8,amount_detail[row]["9"],amount_detail[row]["10"],row11,row8-row11,row13,row8-row11+row13,employee_ptkp[row],row8-row11+row13-flt(employee_ptkp[row]),amount_detail[row]["17"],past[row]["17"],amount_detail[row]["17"]+past[row]["17"],amount_detail[row]["17"]+past[row]["17"],"","796000000000000","IRWAN RUSDI",period.year_end_date])
+		data.append(["12",fiscal,"0","{}{:07n}".format(format_bupot,n),details[row].awal,details[row].akhir,details[row].nomor_npwp,row,details[row].employee_name,details[row].current_address,details[row].gender[0],employee_ptkp[row]['ptkp'],employee_ptkp[row]['tanggungan'],details[row].employment_type,"N","0","21-100-01",amount_detail[row]["1"],"0",amount_detail[row]["3"],"0",amount_detail[row]["5"],"0",amount_detail[row]["7"],row8,amount_detail[row]["9"],amount_detail[row]["10"],row11,row8-row11,row13,row8-row11+row13,employee_ptkp[row]['ptkp_value'],row8-row11+row13-flt(employee_ptkp[row]['ptkp_value']),amount_detail[row]["17"],past[row]["17"],amount_detail[row]["17"]+past[row]["17"],amount_detail[row]["17"]+past[row]["17"],"","796000000000000","IRWAN RUSDI",period.year_end_date])
 		n=n+1
 	return columns, data

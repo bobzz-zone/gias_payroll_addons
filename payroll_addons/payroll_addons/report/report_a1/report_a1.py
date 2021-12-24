@@ -57,7 +57,7 @@ def execute(filters=None):
 		employee_ptkp[row.employee]={}
 		employee_ptkp[row.employee]["ptkp_value"]=row.from_amount
 		employee_ptkp[row.employee]["tanggungan"]=row.income_tax_slab[-1:]
-		employee_ptkp[row.employee]["ptkp"]=row.income_tax_slab.strip(employee_ptkp[row.employee]["tanggunan"])
+		employee_ptkp[row.employee]["ptkp"]=row.income_tax_slab.strip(employee_ptkp[row.employee]["tanggungan"])
 	#get salary total untk gaji cabang sebelumnya jika ada yang start pointnya di bawah bulan mulainya
 	past={}
 	for row in check_past:

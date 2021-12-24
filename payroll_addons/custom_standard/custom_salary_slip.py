@@ -377,7 +377,7 @@ def custom_add_structure_components(self, component_type):
 	#get_total_bulan lalu
 	slip_data=frappe.db.sql("""select c.golongan_a1,sum(sd.amount) as "total"
 			from `tabSalary Detail` sd left join `tabSalary Component` c on sd.salary_component = c.name left join `tabSalary Slip` sl on sl.name=sd.parent
-			where sd.parenttype="Salary Slip" and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.employee="{1}"
+			where sd.parenttype="Salary Slip" and sd.docstatus=1 and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.employee="{1}"
 			group by sl.employee,c.golongan_a1
 			""".format(payroll_period.start_date,self.employee),as_dict=1)
 

@@ -16,7 +16,7 @@ def execute(filters=None):
 	#golongan A1 , 1 = jumlah 1 , 3 = jumlah 3 ,5 = jumlah 5,7 = jumlah 7
 	slip_data=frappe.db.sql("""select c.golongan_a1,sum(sd.amount) as "total",sl.employee 
 			from `tabSalary Detail` sd left join `tabSalary Component` c on sd.salary_component = c.name left join `tabSalary Slip` sl on sl.name=sd.parent
-			where sd.parenttype="Salary Slip" and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch="{2}"
+			where sd.parenttype="Salary Slip" and sl.docstatus=1 and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch="{2}"
 			group by sl.employee,c.golongan_a1
 			""".format(period.year_start_date,period.year_end_date, filters.get("branch")),as_dict=1)
 	amount_detail={}
@@ -36,7 +36,7 @@ def execute(filters=None):
 				e.nomor_npwp,e.nomor_ktp,e.gender,e.employee_name,e.employment_type , e.permanent_address
 			from `tabSalary Slip` sl
 			left join tabEmployee e on sl.employee=e.name
-			where sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch="{2}"
+			where sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch="{2}" and sl.docstatus=1
 			group by sl.employee
 		""".format(period.year_start_date,period.year_end_date, filters.get("branch")),as_dict=1)
 	
@@ -63,7 +63,7 @@ def execute(filters=None):
 	for row in check_past:
 		past_slip_data=frappe.db.sql("""select c.golongan_a1,sum(sd.amount) as "total",sl.employee 
 			from `tabSalary Detail` sd left join `tabSalary Component` c on sd.salary_component = c.name left join `tabSalary Slip` sl on sl.name=sd.parent
-			where sd.parenttype="Salary Slip" and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch!="{2}" and sl.employee="{3}" and month(sl.end_date) < {4}
+			where sd.parenttype="Salary Slip" and sd.docstatus=1 and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch!="{2}" and sl.employee="{3}" and month(sl.end_date) < {4}
 			group by sl.employee,c.golongan_a1
 			""".format(period.year_start_date,period.year_end_date, filters.get("branch"),row[0],row[1]),as_dict=1)
 		past[row[0]]={}

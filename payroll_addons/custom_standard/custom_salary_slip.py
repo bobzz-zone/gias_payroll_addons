@@ -143,7 +143,8 @@ def custom_calculate_variable_tax(self, payroll_period, tax_component):
 	# get remaining numbers of sub-period (period for which one salary is processed)
 	remaining_sub_periods = round(get_period_factor(self.employee,
 		self.start_date, self.end_date, self.payroll_frequency, payroll_period,1)[1])
-	remaining_sub_periods=1
+	if remaining_sub_periods<1:
+		remaining_sub_periods=1
 	if remaining_sub_periods>12:
 		remaining_sub_periods=12
 	# get taxable_earnings, paid_taxes for previous period
@@ -355,7 +356,10 @@ def custom_add_structure_components(self, component_type):
 	payroll_period = get_payroll_period(self.start_date, self.end_date, self.company)
 	remaining_sub_periods = round(get_period_factor(self.employee,
 		self.start_date, self.end_date, self.payroll_frequency, payroll_period,1)[1])
-	remaining_sub_periods=1
+	if remaining_sub_periods<1:
+		remaining_sub_periods=1
+	if remaining_sub_periods>12:
+		remaining_sub_periods=12
 	total_prev_biaya_jabatan_query = frappe.db.sql(""" 
 		
 		SELECT SUM(td.`amount`) as amount

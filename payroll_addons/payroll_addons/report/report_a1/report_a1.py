@@ -80,6 +80,15 @@ def execute(filters=None):
 	n=1
 	for row in details:
 		#["Masa Pajak","Tahun Pajak,Pembetulan:Data:100","Nomor Bukti Potong:Data:100","Masa Perolehan Awal:Data:100","Masa Perolehan Akhir:Data:100","NPWP:Data:100","NIK:Data:100","Nama:Data:100","Alamat","Jenis Kelamin","Status","Jumlah Tanggungan","Nama Jabatan","WP Luar Negeri","Kode Negara","Kode Pajak","Jumlah 1:Currency:100","Jumlah 2:Currency:100","Jumlah 3:Currency:100","Jumlah 4:Currency:100","Jumlah 5:Currency:100","Jumlah 6:Currency:100","Jumlah 7:Currency:100","Jumlah 8:Currency:100","Jumlah 9:Currency:100","Jumlah 10:Currency:100","Jumlah 11:Currency:100","Jumlah 12:Currency:100","Jumlah 13:Currency:100","Jumlah 14:Currency:100","Jumlah 15:Currency:100","Jumlah 16:Currency:100","Jumlah 17:Currency:100","Jumlah 18:Currency:100","Jumlah 19:Currency:100","Jumlah 20:Currency:100","Status Pindah:Data:100","NPWP Pemotong:Data:100","Nama Pemotong:Data:100","Tanggal Bukti Potong:Date:100"]
+		if not row in past:
+			past[row]={}
+			past[row]["1"]=0
+			past[row]["3"]=0
+			past[row]["5"]=0
+			past[row]["7"]=0
+			past[row]["17"]=0
+			past[row]["9"]=0
+			past[row]["10"]=0
 		row8=amount_detail[row]["1"]+amount_detail[row]["3"]+amount_detail[row]["5"]+amount_detail[row]["7"]
 		row11=(amount_detail[row]["9"]+amount_detail[row]["10"]*-1)
 		row13=(past[row]["1"]+past[row]["3"]+past[row]["5"]+past[row]["7"])-((past[row]["9"]+past[row]["10"])*-1)

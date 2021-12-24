@@ -155,6 +155,7 @@ def custom_calculate_variable_tax(self, payroll_period, tax_component):
 	current_taxable_earnings = custom_get_taxable_earnings(self,tax_slab.allow_tax_exemption)
 	self.notes="SISA PERIOD : {}".format(remaining_sub_periods)
 	print("SISA PERIOD : {0}".format(remaining_sub_periods))
+	frappe.msgprint(remaining_sub_periods)
 	future_structured_taxable_earnings = current_taxable_earnings.taxable_earnings * (math.ceil(remaining_sub_periods) - 1)
 
 	# get taxable_earnings, addition_earnings for current actual payment days

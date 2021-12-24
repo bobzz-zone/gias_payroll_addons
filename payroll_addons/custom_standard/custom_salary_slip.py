@@ -374,6 +374,31 @@ def custom_add_structure_components(self, component_type):
 		for row in total_prev_biaya_jabatan_query:
 			total_biaya_jabatan = row.amount
 
+	#get_total_bulan lalu
+	slip_data=frappe.db.sql("""select c.golongan_a1,sum(sd.amount) as "total"
+			from `tabSalary Detail` sd left join `tabSalary Component` c on sd.salary_component = c.name left join `tabSalary Slip` sl on sl.name=sd.parent
+			where sd.parenttype="Salary Slip" and c.golongan_a1 is not NULL and sl.end_date >= "{0}" and sl.employee="{1}"
+			group by sl.employee,c.golongan_a1
+			""".format(payroll_period.start_date,self.employee),as_dict=1)
+
+	amount_detail={}
+	amount_detail["1"]=0
+	amount_detail["3"]=0
+	amount_detail["5"]=0
+	amount_detail["7"]=0
+	amount_detail["17"]=0
+	amount_detail["9"]=0
+	amount_detail["10"]=0
+	for row in slip_data:
+		amount_detail[cstr(row.golongan_a1)]=flt(row.total)
+
+	data.update({'jumlah_1':amount_detail["1"]})
+	data.update({'jumlah_3':amount_detail["3"]})
+	data.update({'jumlah_5':amount_detail["5"]})
+	data.update({'jumlah_7':amount_detail["7"]})
+	data.update({'jumlah_17':amount_detail["17"]})
+	data.update({'jumlah_9':amount_detail["9"]})
+	data.update({'jumlah_10':amount_detail["10"]})
 	data.update({'total_prev_biaya_jabatan': total_biaya_jabatan or 0})
 	data.update({'remaining_sub_periods': remaining_sub_periods or 0 })
 	data.update({'ontime_present': ontime_present})

@@ -155,7 +155,7 @@ def custom_calculate_variable_tax(self, payroll_period, tax_component):
 	current_taxable_earnings = custom_get_taxable_earnings(self,tax_slab.allow_tax_exemption)
 	self.notes="SISA PERIOD : {}".format(remaining_sub_periods)
 	print("SISA PERIOD : {0}".format(remaining_sub_periods))
-	frappe.msgprint(remaining_sub_periods)
+
 	future_structured_taxable_earnings = current_taxable_earnings.taxable_earnings * (math.ceil(remaining_sub_periods) - 1)
 
 	# get taxable_earnings, addition_earnings for current actual payment days
@@ -354,7 +354,7 @@ def custom_add_structure_components(self, component_type):
 	payroll_period = get_payroll_period(self.start_date, self.end_date, self.company)
 	remaining_sub_periods = round(get_period_factor(self.employee,
 		self.start_date, self.end_date, self.payroll_frequency, payroll_period,1)[1])
-
+	frappe.throw(remaining_sub_periods)
 	total_prev_biaya_jabatan_query = frappe.db.sql(""" 
 		
 		SELECT SUM(td.`amount`) as amount

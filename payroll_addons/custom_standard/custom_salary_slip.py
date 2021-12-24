@@ -456,7 +456,7 @@ def custom_eval_condition_and_formula(self, d, data):
 	except SyntaxError as err:
 		frappe.throw(_("Syntax error in formula or condition: {0} in {1}").format(err,d.salary_component))
 	except Exception as e:
-		frappe.throw(_("Error in formula or condition: {0}").format(e))
+		frappe.throw(_("Error in formula or condition: {0} {1}").format(e,d.abbr))
 		raise
 
 

@@ -96,8 +96,11 @@ def execute(filters=None):
 			past[row]["9"]=0
 			past[row]["10"]=0
 		row8=amount_detail[row]["1"]+amount_detail[row]["3"]+amount_detail[row]["5"]+amount_detail[row]["7"]
-		row11=(amount_detail[row]["9"]+amount_detail[row]["10"]*-1)
+		row11=(amount_detail[row]["9"]+amount_detail[row]["10"])*-1
 		row13=(past[row]["1"]+past[row]["3"]+past[row]["5"]+past[row]["7"])-((past[row]["9"]+past[row]["10"])*-1)
-		data.append(["12",fiscal,"0","{}{:07n}".format(format_bupot,n),details[row].awal,details[row].akhir,details[row].nomor_npwp or "000000000000000",row,details[row].employee_name,details[row].permanent_address,details[row].gender[0],employee_ptkp[row]['ptkp'],employee_ptkp[row]['tanggungan'],details[row].employment_type,"N","0","21-100-01",amount_detail[row]["1"],"0",amount_detail[row]["3"],"0",amount_detail[row]["5"],"0",amount_detail[row]["7"],row8,(amount_detail[row]["9"]*-1),(amount_detail[row]["10"]*-1),row11,row8-row11,row13,row8-row11+row13,employee_ptkp[row]['ptkp_value'],row8-row11+row13-flt(employee_ptkp[row]['ptkp_value']),amount_detail[row]["17"],past[row]["17"],amount_detail[row]["17"]+past[row]["17"],amount_detail[row]["17"]+past[row]["17"],"","796000000000000","IRWAN RUSDI",period.year_end_date])
+		row16=row8-row11+row13-flt(employee_ptkp[row]['ptkp_value'])
+		if row16<0:
+			row16=0
+		data.append(["12",fiscal,"0","{}{:07n}".format(format_bupot,n),details[row].awal,details[row].akhir,details[row].nomor_npwp or "000000000000000",row,details[row].employee_name,details[row].permanent_address,details[row].gender[0],employee_ptkp[row]['ptkp'],employee_ptkp[row]['tanggungan'],details[row].employment_type,"N","0","21-100-01",amount_detail[row]["1"],"0",amount_detail[row]["3"],"0",amount_detail[row]["5"],"0",amount_detail[row]["7"],row8,(amount_detail[row]["9"]*-1),(amount_detail[row]["10"]*-1),row11,row8-row11,row13,row8-row11+row13,employee_ptkp[row]['ptkp_value'],row16,amount_detail[row]["17"],past[row]["17"],amount_detail[row]["17"]+past[row]["17"],amount_detail[row]["17"]+past[row]["17"],"","796000000000000","IRWAN RUSDI",period.year_end_date])
 		n=n+1
 	return columns, data

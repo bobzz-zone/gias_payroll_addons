@@ -237,7 +237,7 @@ def custom_calculate_variable_tax(self, payroll_period, tax_component):
 	# if flt(current_tax_amount) < 0:
 	# 	current_tax_amount = 0
 
-	return math.floor(current_tax_amount/1000)*1000
+	return current_tax_amount
 
 def custom_add_structure_components(self, component_type):
 	data = self.get_data_for_eval()

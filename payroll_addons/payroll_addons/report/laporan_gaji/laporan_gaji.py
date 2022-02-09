@@ -16,7 +16,7 @@ def execute(filters=None):
 
 	#columns, data = get_column(), get_item(filters)
 	columns = get_column()
-	data = frappe.db.sql("""select d.salary_component,sum(d.amount) from `tabSalary Detail` d 
+	data = frappe.db.sql("""select d.salary_component,sum(if(d.parentfield="earnings",d.amount,d.amount*-1) ) from `tabSalary Detail` d 
 			join `tabSalary Slip` s on s.name = d.parent 
 			where d.parenttype="Salary Slip" and s.start_date>="{}" and end_date<="{}" and branch="{}" and s.docstatus=1 group by salary_component 
 		""".format(filters.get('from_date'),filters.get('to_date'),filters.get('cabang')))

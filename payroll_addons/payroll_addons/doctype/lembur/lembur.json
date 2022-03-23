@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2022-03-07 16:25:46.176763",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "branc",
+  "bagian",
+  "get_detail",
+  "detail_lembur_section",
+  "data_lembur_karyawan",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "HR-LMB-"
+  },
+  {
+   "fieldname": "branc",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "bagian",
+   "fieldtype": "Link",
+   "label": "Bagian",
+   "options": "Department"
+  },
+  {
+   "fieldname": "get_detail",
+   "fieldtype": "Button",
+   "label": "Get Data"
+  },
+  {
+   "fieldname": "detail_lembur_section",
+   "fieldtype": "Section Break",
+   "label": "Detail Lembur"
+  },
+  {
+   "fieldname": "data_lembur_karyawan",
+   "fieldtype": "Table",
+   "label": "Data Lembur Karyawan",
+   "options": "Detail Lembur"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Lembur",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-03-23 14:51:32.340893",
+ "modified_by": "Administrator",
+ "module": "Payroll Addons",
+ "name": "Lembur",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

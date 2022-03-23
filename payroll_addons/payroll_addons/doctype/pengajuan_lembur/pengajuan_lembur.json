@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "LBR-.YYYY.-.MM.-.#####",
+ "creation": "2022-03-17 08:55:25.626026",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "request_date",
+  "employee",
+  "employee_name",
+  "department",
+  "branch",
+  "lembur_sb",
+  "tanggal_lembur",
+  "expected_start",
+  "est_jam",
+  "est_menit",
+  "description",
+  "actual_sb",
+  "total",
+  "total_menit",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "request_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Request Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "label": "Employee Name"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.branch",
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "lembur_sb",
+   "fieldtype": "Section Break",
+   "label": "Detail Lembur"
+  },
+  {
+   "fieldname": "tanggal_lembur",
+   "fieldtype": "Date",
+   "label": "Tanggal Lembur"
+  },
+  {
+   "fieldname": "expected_start",
+   "fieldtype": "Datetime",
+   "label": "Jam Perkiraan Mulai Lembur"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Detail Kegiatan"
+  },
+  {
+   "fieldname": "actual_sb",
+   "fieldtype": "Section Break",
+   "label": "Actual Detail"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Int",
+   "label": "Final Total Jam Lembur"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Pengajuan Lembur",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_menit",
+   "fieldtype": "Int",
+   "label": "Final Total Menit Lembur"
+  },
+  {
+   "fieldname": "est_jam",
+   "fieldtype": "Int",
+   "label": "Estimasi Jam Kerja"
+  },
+  {
+   "fieldname": "est_menit",
+   "fieldtype": "Int",
+   "label": "Estimasi Menit Kerja"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-03-23 14:50:30.847335",
+ "modified_by": "Administrator",
+ "module": "Payroll Addons",
+ "name": "Pengajuan Lembur",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

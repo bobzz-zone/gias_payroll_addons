@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-03-23 15:01:22.101660",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "biasa_jam_awal",
+  "biasa_menit_awal",
+  "biasa_jam_akhir",
+  "biasa_menit_akhir",
+  "libur_jam_awal",
+  "libur_menit_awal",
+  "libur_jam_akhir",
+  "libur_menit_akhir"
+ ],
+ "fields": [
+  {
+   "fieldname": "biasa_jam_awal",
+   "fieldtype": "Currency",
+   "label": "Biaya Perjam Hari Biasa 2 jam pertama"
+  },
+  {
+   "fieldname": "biasa_menit_awal",
+   "fieldtype": "Currency",
+   "label": "Biaya Permenit Hari Biasa 2 jam pertama"
+  },
+  {
+   "fieldname": "biasa_jam_akhir",
+   "fieldtype": "Currency",
+   "label": "Biaya Perjam Hari Biasa setelah 2 jam"
+  },
+  {
+   "fieldname": "biasa_menit_akhir",
+   "fieldtype": "Currency",
+   "label": "Biaya Permenit Hari Biasa 2 jam pertama setelah 2 jam"
+  },
+  {
+   "fieldname": "libur_jam_awal",
+   "fieldtype": "Currency",
+   "label": "Biaya Perjam Hari Libur 2 jam pertama"
+  },
+  {
+   "fieldname": "libur_menit_awal",
+   "fieldtype": "Currency",
+   "label": "Biaya Permenit Hari Libur 2 jam pertama"
+  },
+  {
+   "fieldname": "libur_jam_akhir",
+   "fieldtype": "Currency",
+   "label": "Biaya Perjam Hari Libur setelah 2 jam"
+  },
+  {
+   "fieldname": "libur_menit_akhir",
+   "fieldtype": "Currency",
+   "label": "Biaya Permenit Hari Libur 2 jam pertama setelah 2 jam"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-03-23 15:01:22.101660",
+ "modified_by": "Administrator",
+ "module": "Payroll Addons",
+ "name": "Setting Biaya Lembur",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

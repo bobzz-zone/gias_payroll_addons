@@ -12,7 +12,7 @@ class PengajuanLembur(Document):
 			self.is_holiday=1
 		else:
 			self.is_holiday=0
-		if self.total_menit > 59 or self.est_menit>59:
+		if (self.total_menit or 0) > 59 or (self.est_menit or 0) > 59:
 			frappe.throw("Total Menit Tidak boleh lebih dari 1 jam")
 		if self.est_menit and not self.total_menit:
 			self.total_menit=self.est_menit

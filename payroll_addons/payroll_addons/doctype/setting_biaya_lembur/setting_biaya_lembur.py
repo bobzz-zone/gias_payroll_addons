@@ -5,6 +5,4 @@
 from frappe.model.document import Document
 
 class SettingBiayaLembur(Document):
-	@frappe.whitelist()
-	def get_data(self):
-		frappe.msgprint("Called")
+	pass

@@ -121,8 +121,8 @@ def custom_add_tax_components(self, payroll_period):
 		#	self.update_component_row("Adjustment", tax_amount, "earnings")
 		#else:
 		#disable pph
-		if self.salary_structure!="Saldo Awal Oktober":
-			self.update_component_row(tax_row, tax_amount, "deductions")
+		#if self.salary_structure!="Saldo Awal Oktober":
+		#	self.update_component_row(tax_row, tax_amount, "deductions")
 
 def custom_calculate_variable_based_on_taxable_salary(self, tax_component, payroll_period):
 	if not payroll_period:

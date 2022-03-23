@@ -84,7 +84,8 @@ def custom_calculate_net_pay(self):
 		custom_calculate_component_amounts(self,"deductions")
 
 	self.set_loan_repayment()
-	self.set_component_amounts_based_on_payment_days()
+	self.set_precision_for_component_amounts()
+	#self.set_component_amounts_based_on_payment_days()
 	self.set_net_pay()
 
 def custom_calculate_component_amounts(self, component_type):

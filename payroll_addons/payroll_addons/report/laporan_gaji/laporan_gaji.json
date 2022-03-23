@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2021-11-03 12:21:37.240544",
  "disable_prepared_report": 0,
@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "Standard Letter Head",
- "modified": "2021-11-03 12:21:37.240544",
+ "modified": "2022-02-09 17:43:22.115612",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Laporan Gaji",
@@ -30,7 +30,7 @@
    "role": "HR Manager"
   },
   {
-   "role": "Employee Self Service"
+   "role": "Employee Self Services"
   },
   {
    "role": "Payroll"

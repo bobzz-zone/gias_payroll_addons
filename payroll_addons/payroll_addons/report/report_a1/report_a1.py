@@ -9,7 +9,7 @@ import datetime
 from datetime import date
 
 def execute(filters=None):
-	columns, data = ["Masa Pajak:Data:100","Tahun Pajak:Data:100","Pembetulan:Data:100","Nomor Bukti Potong:Data:100","Masa Perolehan Awal:Data:100","Masa Perolehan Akhir:Data:100","NPWP:Data:100","NIK:Data:100","Nama:Data:100","Alamat:Data:100","Jenis Kelamin:Data:100","Status PTKP:Data:100","Jumlah Tanggungan:Data:100","Nama Jabatan:Data:100","WP Luar Negeri:Data:100","Kode Negara:Data:100","Kode Pajak:Data:100","Jumlah 1:Currency:100","Jumlah 2:Currency:100","Jumlah 3:Currency:100","Jumlah 4:Currency:100","Jumlah 5:Currency:100","Jumlah 6:Currency:100","Jumlah 7:Currency:100","Jumlah 8:Currency:100","Jumlah 9:Currency:100","Jumlah 10:Currency:100","Jumlah 11:Currency:100","Jumlah 12:Currency:100","Jumlah 13:Currency:100","Jumlah 14:Currency:100","Jumlah 15:Currency:100","Jumlah 16:Currency:100","Jumlah 17:Currency:100","Jumlah 18:Currency:100","Jumlah 19:Currency:100","Jumlah 20:Currency:100","Status Pindah:Data:100","NPWP Pemotong:Data:100","Nama Pemotong:Data:100","Tanggal Bukti Potong:Date:100"], []
+	columns, data = ["Masa Pajak:Data:100","Tahun Pajak:Data:100","Pembetulan:Data:100","Nomor Bukti Potong:Data:100","Masa Perolehan Awal:Data:100","Masa Perolehan Akhir:Data:100","NPWP:Data:100","NIK:Data:100","Nama:Data:100","Alamat:Data:100","Jenis Kelamin:Data:100","Status PTKP:Data:100","Jumlah Tanggungan:Data:100","Nama Jabatan:Data:100","WP Luar Negeri:Data:100","Kode Negara:Data:100","Kode Pajak:Data:100","Jumlah 1:Currency:100","Jumlah 2:Currency:100","Jumlah 3:Currency:100","Jumlah 4:Currency:100","Jumlah 5:Currency:100","Jumlah 6:Currency:100","Jumlah 7:Currency:100","Jumlah 8:Currency:100","Jumlah 9:Currency:100","Jumlah 10:Currency:100","Jumlah 11:Currency:100","Jumlah 12:Currency:100","Jumlah 13:Currency:100","Jumlah 14:Currency:100","Jumlah 15:Currency:100","Jumlah 16:Currency:100","Jumlah 17:Currency:100","Jumlah 18:Currency:100","Jumlah 19:Currency:100","Jumlah 20:Currency:100","Status Pindah:Data:100","NPWP Pemotong:Data:100","Nama Pemotong:Data:100","Tanggal Bukti Potong:Data:100"], []
 	#get fiscal period
 	fiscal=filters.get("year")
 	period = frappe.get_doc("Fiscal Year",fiscal)
@@ -33,7 +33,7 @@ def execute(filters=None):
 		amount_detail[row.employee][cstr(row.golongan_a1)]=flt(row.total)
 	#get employee dengan salary slip yang ada pada tahun terpilih, dan ambil bulan awal , dan akir salary slip pada cabang tersebut
 	employee_list = frappe.db.sql(""" select MIN(MONTH(sl.end_date)) as "awal",MAX(MONTH(sl.end_date)) as "akhir",sl.employee,
-				e.nomor_npwp,e.nomor_ktp,e.gender,e.employee_name,e.employment_type , e.permanent_address
+				e.nomor_npwp,e.nomor_ktp,e.gender,e.employee_name,e.employment_type , e.permanent_address , e.npwp_a1, e.penanda_tangan_a1
 			from `tabSalary Slip` sl
 			left join tabEmployee e on sl.employee=e.name
 			where sl.end_date >= "{0}" and sl.end_date <= "{1}" and sl.branch="{2}" and sl.docstatus=1
@@ -50,8 +50,10 @@ def execute(filters=None):
 	#get data PTKP
 	employee_ptkp={}
 	data_ptkp=frappe.db.sql("""select ssa.employee,ssa.from_date, ssa.income_tax_slab ,tss.from_amount
-		from `tabSalary Structure Assignment` ssa left join tabEmployee e on e.name=ssa.employee left join `tabTaxable Salary Slab` tss on tss.parent=ssa.income_tax_slab and tss.idx=1
-		where e.branch="{1}" and ssa.from_date <"{0}" and ssa.docstatus=1 and ssa.from_date in (select max(from_date) from `tabSalary Structure Assignment` ssa2 where ssa2.employee=ssa.employee and ssa2.from_date <"{0}" and ssa2.docstatus=1)
+		from `tabSalary Structure Assignment` ssa 
+		left join `tabTaxable Salary Slab` tss on tss.parent=ssa.income_tax_slab and tss.idx=1
+		where ssa.branch="{1}" and ssa.from_date <"{0}" and ssa.docstatus=1 
+		and ssa.from_date = (select max(ssa2.from_date) from `tabSalary Structure Assignment` ssa2 where ssa2.employee=ssa.employee and ssa2.from_date <"{0}" and ssa2.docstatus=1)
 	""".format(period.year_end_date, filters.get("branch")),as_dict=1)
 	for row in data_ptkp:
 		employee_ptkp[row.employee]={}
@@ -76,12 +78,16 @@ def execute(filters=None):
 		past[row[0]]["10"]=0
 		for past_slip in past_slip_data:
 			past[row[0]][cstr(past_slip.golongan_a1)]=flt(past_slip.total)
-	format_bupot="1.1-12.{}-".format(cstr(fiscal)[-2:])
+	branch = frappe.get_doc("Branch",filters.get("branch"))
+	awalan="1"
+	if branch.awalan_a1:
+		awalan=branch.awalan_a1
+	format_bupot="{}.1-12.{}-".format(awalan,cstr(fiscal)[-2:])
 	n=1
 	for row in details:
 		#["Masa Pajak","Tahun Pajak,Pembetulan:Data:100","Nomor Bukti Potong:Data:100","Masa Perolehan Awal:Data:100","Masa Perolehan Akhir:Data:100","NPWP:Data:100","NIK:Data:100","Nama:Data:100","Alamat","Jenis Kelamin","Status","Jumlah Tanggungan","Nama Jabatan","WP Luar Negeri","Kode Negara","Kode Pajak","Jumlah 1:Currency:100","Jumlah 2:Currency:100","Jumlah 3:Currency:100","Jumlah 4:Currency:100","Jumlah 5:Currency:100","Jumlah 6:Currency:100","Jumlah 7:Currency:100","Jumlah 8:Currency:100","Jumlah 9:Currency:100","Jumlah 10:Currency:100","Jumlah 11:Currency:100","Jumlah 12:Currency:100","Jumlah 13:Currency:100","Jumlah 14:Currency:100","Jumlah 15:Currency:100","Jumlah 16:Currency:100","Jumlah 17:Currency:100","Jumlah 18:Currency:100","Jumlah 19:Currency:100","Jumlah 20:Currency:100","Status Pindah:Data:100","NPWP Pemotong:Data:100","Nama Pemotong:Data:100","Tanggal Bukti Potong:Date:100"]
 		if not row in employee_ptkp:
-			frappe.throw("PTKP Issue")
+			frappe.throw("{} PTKP Issue".format(row))
 		if not row in amount_detail:
 			frappe.throw("Amount Detail Issue")
 		if not row in details:
@@ -101,6 +107,9 @@ def execute(filters=None):
 		row16=row8-row11+row13-flt(employee_ptkp[row]['ptkp_value'])
 		if row16<0:
 			row16=0
-		data.append(["12",fiscal,"0","{}{:07n}".format(format_bupot,n),details[row].awal,details[row].akhir,details[row].nomor_npwp or "000000000000000",row,details[row].employee_name,details[row].permanent_address,details[row].gender[0],employee_ptkp[row]['ptkp'],employee_ptkp[row]['tanggungan'],details[row].employment_type,"N","0","21-100-01",amount_detail[row]["1"],"0",amount_detail[row]["3"],"0",amount_detail[row]["5"],"0",amount_detail[row]["7"],row8,(amount_detail[row]["9"]*-1),(amount_detail[row]["10"]*-1),row11,row8-row11,row13,row8-row11+row13,employee_ptkp[row]['ptkp_value'],row16,amount_detail[row]["17"],past[row]["17"],amount_detail[row]["17"]+past[row]["17"],amount_detail[row]["17"]+past[row]["17"],"","796000000000000","IRWAN RUSDI",period.year_end_date])
+		row19=amount_detail[row]["17"]+past[row]["17"]
+		if row19<0:
+			row19=0
+		data.append(["12",fiscal,"0","{}{:07n}".format(format_bupot,n),details[row].awal,details[row].akhir,details[row].nomor_npwp or "000000000000000",row,details[row].employee_name,details[row].permanent_address,details[row].gender[0],employee_ptkp[row]['ptkp'],employee_ptkp[row]['tanggungan'],details[row].employment_type,"N","" ,"21-100-01",amount_detail[row]["1"],"0",amount_detail[row]["3"],"0",amount_detail[row]["5"],"0",amount_detail[row]["7"],row8,(amount_detail[row]["9"]*-1),(amount_detail[row]["10"]*-1),row11,row8-row11,row13,row8-row11+row13,employee_ptkp[row]['ptkp_value'],row16,amount_detail[row]["17"],past[row]["17"],row19,row19,"",details[row].npwp_a1,details[row].penanda_tangan_a1,period.year_end_date])
 		n=n+1
 	return columns, data

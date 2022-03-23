@@ -10,12 +10,12 @@ from datetime import date
 
 def execute(filters=None):
 	columns, data = [], []
-	columns=["Employee ID:Data:150","Employee Name:Data:200","Nomor NPWP:Data:200","Gross Pay:Currency:200","PPH21:Currency:200"]
+	columns=["Employee ID:Data:150","Masa Pajak:Data:50","Tahun Pajak:Data:50","Pembetulan:Data:50","Nomor NPWP:Data:200","Nama:Data:200","Kode Pajak:Data:100","Gross Pay:Currency:200","PPH21:Currency:200","Kode Negara:Data:50"]
 	query=""" 
 		SELECT 
 		ts.employee,ts.`employee_name`, te.nomor_npwp, te.`branch`,
 		tsd.`is_tax_applicable`, tsd.`salary_component`, tsd.`statistical_component`,
-		tsd.`amount`, tsd.`parentfield`
+		tsd.`amount`, tsd.`parentfield`,MONTH(ts.end_date) as "month" , YEAR(ts.end_date) as "year"
 
 		FROM `tabSalary Slip` ts
 		JOIN `tabEmployee` te ON te.name = ts.`employee`
@@ -51,5 +51,5 @@ def execute(filters=None):
 
 				elif row_raw.salary_component != "Potongan Perhitungan Pajak BIJAB" and row_raw.salary_component != "BPJS Di Potongkan Di Akui Pajak" and row_raw.parentfield == "earnings" and str(row_raw.statistical_component) == "0"  and str(row_raw.is_tax_applicable) == "1":
 					gross_pay += flt(row_raw.amount)
-		data.append([employee_id,employee_name,no_npwp, gross_pay, pph21])
+		data.append([employee_id,row_raw.month,row_raw.year,"0",no_npwp,employee_name,"21-100-01", round(gross_pay,0), round(pph21,0),""])
 	return columns, data

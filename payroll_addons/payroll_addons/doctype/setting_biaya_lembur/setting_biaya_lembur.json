@@ -10,6 +10,7 @@
   "biasa_menit_awal",
   "biasa_jam_akhir",
   "biasa_menit_akhir",
+  "column_break_5",
   "libur_jam_awal",
   "libur_menit_awal",
   "libur_jam_akhir",
@@ -55,12 +56,16 @@
    "fieldname": "libur_menit_akhir",
    "fieldtype": "Currency",
    "label": "Biaya Permenit Hari Libur 2 jam pertama setelah 2 jam"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-03-23 15:01:22.101660",
+ "modified": "2022-03-23 16:39:19.058123",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Setting Biaya Lembur",

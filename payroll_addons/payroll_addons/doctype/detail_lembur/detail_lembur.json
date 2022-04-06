@@ -6,8 +6,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "nik",
-  "nama_karyawan",
+  "employee",
+  "employee_name",
   "total_value",
   "sb1",
   "jam_hari_biasa_awal",
@@ -22,24 +22,11 @@
  ],
  "fields": [
   {
-   "fieldname": "nik",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "NIK",
-   "options": "Employee"
-  },
-  {
-   "fetch_from": "nik.employee_name",
-   "fieldname": "nama_karyawan",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Nama Karyawan"
-  },
-  {
    "fieldname": "total_value",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Total Value"
+   "label": "Total Value",
+   "read_only": 1
   },
   {
    "fieldname": "sb1",
@@ -97,12 +84,28 @@
    "fieldtype": "Int",
    "label": "Total Menit Hari Biasa di atas 2 jam",
    "read_only": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "NIK",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nama Karyawan",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-03-23 14:57:48.153921",
+ "modified": "2022-03-24 10:47:58.570867",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Detail Lembur",

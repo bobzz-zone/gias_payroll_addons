@@ -14,6 +14,7 @@
   "branch",
   "lembur_sb",
   "tanggal_lembur",
+  "is_holiday",
   "expected_start",
   "est_jam",
   "est_menit",
@@ -21,6 +22,7 @@
   "actual_sb",
   "total",
   "total_menit",
+  "lembur",
   "amended_from"
  ],
  "fields": [
@@ -73,7 +75,7 @@
   },
   {
    "fieldname": "expected_start",
-   "fieldtype": "Datetime",
+   "fieldtype": "Time",
    "label": "Jam Perkiraan Mulai Lembur"
   },
   {
@@ -114,12 +116,27 @@
    "fieldname": "est_menit",
    "fieldtype": "Int",
    "label": "Estimasi Menit Kerja"
+  },
+  {
+   "fieldname": "lembur",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Data Lembur",
+   "options": "Lembur",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_holiday",
+   "fieldtype": "Check",
+   "label": "Hari Libur",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-03-23 14:50:30.847335",
+ "modified": "2022-03-29 21:27:26.567011",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Pengajuan Lembur",
@@ -135,6 +152,30 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee Self Service",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

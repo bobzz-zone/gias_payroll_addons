@@ -8,11 +8,18 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "branc",
-  "bagian",
+  "from_date",
+  "to_date",
+  "branch",
+  "department",
   "get_detail",
+  "settings_sb",
+  "salary_component",
+  "deduct_full",
+  "payroll_date",
   "detail_lembur_section",
   "data_lembur_karyawan",
+  "total_cost",
   "amended_from"
  ],
  "fields": [
@@ -20,24 +27,13 @@
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Naming Series",
-   "options": "HR-LMB-"
-  },
-  {
-   "fieldname": "branc",
-   "fieldtype": "Link",
-   "label": "Branch",
-   "options": "Branch"
-  },
-  {
-   "fieldname": "bagian",
-   "fieldtype": "Link",
-   "label": "Bagian",
-   "options": "Department"
+   "options": "HR-LMB-.YYYY.-.MM.-.#####"
   },
   {
    "fieldname": "get_detail",
    "fieldtype": "Button",
-   "label": "Get Data"
+   "label": "Get Data",
+   "options": "get_data"
   },
   {
    "fieldname": "detail_lembur_section",
@@ -58,12 +54,69 @@
    "options": "Lembur",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Periode Dari",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Periode Hingga",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "settings_sb",
+   "fieldtype": "Section Break",
+   "label": "Additional Salary Settings"
+  },
+  {
+   "default": "Lembur",
+   "fieldname": "salary_component",
+   "fieldtype": "Link",
+   "label": "Salary Component",
+   "options": "Salary Component"
+  },
+  {
+   "default": "0",
+   "fieldname": "deduct_full",
+   "fieldtype": "Check",
+   "label": "Deduct Full Tax On Payroll Period"
+  },
+  {
+   "fieldname": "payroll_date",
+   "fieldtype": "Date",
+   "label": "Payroll Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-03-23 14:51:32.340893",
+ "modified": "2022-04-06 21:50:18.183157",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Lembur",

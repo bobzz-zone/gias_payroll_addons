@@ -9,7 +9,7 @@ class Lembur(Document):
 	@frappe.whitelist()
 	def on_submit(self):
 		sc = frappe.get_doc("Salary Component",self.salary_component)
-		for row in self.data_lembur:
+		for row in self.data_lembur_karyawan:
 			employee = frappe.get_doc("Employee",row.employee)
 			ads = frappe.new_doc("Additional Salary")
 			ads.employee=employee.name

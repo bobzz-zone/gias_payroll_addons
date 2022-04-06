@@ -27,11 +27,11 @@ class Lembur(Document):
 			ads.ref_docname=self.name
 			#ads.save()
 			ads.submit()
-	def on_cancel(self):
-		list_ads=frappe.db.sql("""select name from `tabAdditional Salary` where ref_doctype="Lembur" and ref_docname="{}" and docstatus=1 """.format(self.name),as_list=1)
-		for row in list_ads:
-			ads = frappe.get_doc("Additional Salary",row[0])
-			ads.cancel()
+	# def on_cancel(self):
+	# 	list_ads=frappe.db.sql("""select name from `tabAdditional Salary` where ref_doctype="Lembur" and ref_docname="{}" and docstatus=1 """.format(self.name),as_list=1)
+	# 	for row in list_ads:
+	# 		ads = frappe.get_doc("Additional Salary",row[0])
+	# 		ads.cancel()
 
 	@frappe.whitelist()
 	def get_data(self):

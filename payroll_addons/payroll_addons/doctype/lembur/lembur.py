@@ -7,6 +7,33 @@ from frappe.model.document import Document
 
 class Lembur(Document):
 	@frappe.whitelist()
+	def on_submit(self):
+		sc = frappe.get_doc("Salary Component",self.salary_component)
+		for row in self.data_lembur:
+			employee = frappe.get_doc("Employee",row.employee)
+			ads = frappe.new_doc("Additional Salary")
+			ads.employee=employee.name
+			ads.employee_name=employee.employee_name
+			ads.company=employee.company
+			ads.department=employee.department
+			ads.salary_component=self.salary_component
+			ads.type=sc.type
+			ads.currency="IDR"
+			ads.amount=row.total_value
+			ads.payroll_date=self.payroll_date
+			ads.deduct_full_tax_on_selected_payroll_date=self.deduct_full
+			ads.is_recurring=0
+			ads.ref_doctype="Lembur"
+			ads.ref_docname=self.name
+			#ads.save()
+			ads.submit()
+	def on_cancel(self):
+		list_ads=frappe.db.sql("""select name from `tabAdditional Salary` where ref_doctype="Lembur" and ref_docname="{}" and docstatus=1 """.format(self.name),as_list=1)
+		for row in list_ads:
+			ads = frappe.get_doc("Additional Salary",row[0])
+			ads.cancel()
+
+	@frappe.whitelist()
 	def get_data(self):
 		if not self.from_date:
 			frappe.throw("Siliahkan isi Periode Terlebih Dahulu")

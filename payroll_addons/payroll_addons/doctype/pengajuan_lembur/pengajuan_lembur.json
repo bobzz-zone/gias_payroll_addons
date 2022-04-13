@@ -23,6 +23,7 @@
   "total",
   "total_menit",
   "lembur",
+  "checkout",
   "amended_from"
  ],
  "fields": [
@@ -131,12 +132,18 @@
    "fieldtype": "Check",
    "label": "Hari Libur",
    "read_only": 1
+  },
+  {
+   "fieldname": "checkout",
+   "fieldtype": "Datetime",
+   "label": "Jam Check Out",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-03-29 21:27:26.567011",
+ "modified": "2022-04-06 22:45:05.633065",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Pengajuan Lembur",

@@ -14,9 +14,9 @@
   "department",
   "get_detail",
   "settings_sb",
+  "payroll_date",
   "salary_component",
   "deduct_full",
-  "payroll_date",
   "detail_lembur_section",
   "data_lembur_karyawan",
   "total_cost",
@@ -99,7 +99,8 @@
    "fieldname": "salary_component",
    "fieldtype": "Link",
    "label": "Salary Component",
-   "options": "Salary Component"
+   "options": "Salary Component",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -110,13 +111,14 @@
   {
    "fieldname": "payroll_date",
    "fieldtype": "Date",
-   "label": "Payroll Date"
+   "label": "Payroll Date",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-04-06 21:50:18.183157",
+ "modified": "2022-04-06 22:48:53.689311",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Lembur",

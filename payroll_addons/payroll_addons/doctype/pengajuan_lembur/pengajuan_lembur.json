@@ -15,9 +15,6 @@
   "lembur_sb",
   "tanggal_lembur",
   "is_holiday",
-  "expected_start",
-  "est_jam",
-  "est_menit",
   "description",
   "actual_sb",
   "total",
@@ -75,11 +72,6 @@
    "label": "Tanggal Lembur"
   },
   {
-   "fieldname": "expected_start",
-   "fieldtype": "Time",
-   "label": "Jam Perkiraan Mulai Lembur"
-  },
-  {
    "fieldname": "description",
    "fieldtype": "Text",
    "label": "Detail Kegiatan"
@@ -92,7 +84,7 @@
   {
    "fieldname": "total",
    "fieldtype": "Int",
-   "label": "Final Total Jam Lembur"
+   "label": "Jam Lembur"
   },
   {
    "fieldname": "amended_from",
@@ -106,17 +98,7 @@
   {
    "fieldname": "total_menit",
    "fieldtype": "Int",
-   "label": "Final Total Menit Lembur"
-  },
-  {
-   "fieldname": "est_jam",
-   "fieldtype": "Int",
-   "label": "Estimasi Jam Kerja"
-  },
-  {
-   "fieldname": "est_menit",
-   "fieldtype": "Int",
-   "label": "Estimasi Menit Kerja"
+   "label": "Menit Lembur"
   },
   {
    "fieldname": "lembur",
@@ -143,7 +125,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-04-06 22:45:05.633065",
+ "modified": "2022-04-14 19:03:46.301515",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Pengajuan Lembur",

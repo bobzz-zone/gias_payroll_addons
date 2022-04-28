@@ -96,7 +96,7 @@ def create_salary_slips_for_employees_custom(employees, args, publish_progress=T
 				""".format(status,query_late,query_early,ss.employee, date_awal, date_akhir))
 
 				for row_list in list_count:
-					jumlah_tanggal = jumlah_tanggal + row_list[0]			
+					jumlah_tanggal = jumlah_tanggal + row_list[0]
 
 			# get_attendance = frappe.db.sql(""" SELECT work_period, forget_to_checkout, paid_leave, late_count 
 			# 	FROM `tabPayroll Employee Detail` WHERE parent = "{}" and employee = "{}" """.format(args.payroll_entry,args.employee))

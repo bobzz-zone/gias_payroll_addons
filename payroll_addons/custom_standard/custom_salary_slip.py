@@ -148,6 +148,9 @@ def custom_calculate_variable_tax(self, payroll_period, tax_component):
 		remaining_sub_periods=1
 	if remaining_sub_periods>12:
 		remaining_sub_periods=12
+	#special thr
+	#if self.payroll_frequency=="Daily":
+	#	remaining_sub_periods=frappe.db.get_value("Employee",self.employee,"temp_period")
 	# get taxable_earnings, paid_taxes for previous period
 	previous_taxable_earnings = self.get_taxable_earnings_for_prev_period(payroll_period.start_date,
 		self.start_date, tax_slab.allow_tax_exemption)
@@ -158,7 +161,11 @@ def custom_calculate_variable_tax(self, payroll_period, tax_component):
 	current_taxable_earnings = custom_get_taxable_earnings(self,tax_slab.allow_tax_exemption)
 	self.notes="SISA PERIOD : {}".format(remaining_sub_periods)
 	print("SISA PERIOD : {0}".format(remaining_sub_periods))
-
+	#special thr
+	#future_structured_taxable_earnings=0
+	#if self.payroll_frequency=="Daily":
+	#	future_structured_taxable_earnings=frappe.db.get_value("Employee",self.employee,"temp")
+	#else:
 	future_structured_taxable_earnings = current_taxable_earnings.taxable_earnings * (math.ceil(remaining_sub_periods) - 1)
 
 	# get taxable_earnings, addition_earnings for current actual payment days

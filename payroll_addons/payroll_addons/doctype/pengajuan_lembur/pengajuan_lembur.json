@@ -20,6 +20,7 @@
   "total",
   "total_menit",
   "lembur",
+  "checkin",
   "checkout",
   "amended_from"
  ],
@@ -120,12 +121,17 @@
    "fieldtype": "Datetime",
    "label": "Jam Check Out",
    "read_only": 1
+  },
+  {
+   "fieldname": "checkin",
+   "fieldtype": "Datetime",
+   "label": "Jam Check In"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-04-14 19:03:46.301515",
+ "modified": "2022-04-21 13:28:41.763527",
  "modified_by": "Administrator",
  "module": "Payroll Addons",
  "name": "Pengajuan Lembur",
